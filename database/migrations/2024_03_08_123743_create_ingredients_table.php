@@ -18,8 +18,7 @@ return new class extends Migration
             $table->foreignUuId('recipe_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->string('quantity');
-            $table->timestamps('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
-            $table->timestamps('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamps();
         });
     }
 

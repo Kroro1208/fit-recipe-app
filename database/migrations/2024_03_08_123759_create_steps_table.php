@@ -18,8 +18,6 @@ return new class extends Migration
             $table->foreignUuId('recipe_id')->constrained()->cascadeOnDelete();
             $table->integer('step_number');
             $table->text('description');
-            $table->timestamps('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
-            $table->timestamps('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -17,9 +18,8 @@ return new class extends Migration
             $table->foreignUuId('recipe_id')->constrained()->cascadeOnDelete();
             $table->unsignedTinyInteger('raiting');
             $table->text('comment');
-            $table->timestamps('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
-            $table->timestamps('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->softDelete();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

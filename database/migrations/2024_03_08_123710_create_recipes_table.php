@@ -21,9 +21,8 @@ return new class extends Migration
             $table->text('description');
             $table->text('image')->nullable();
             $table->unsignedBigInteger('views')->default(0);
-            $table->timestamps('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
-            $table->timestamps('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->softDelete();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
