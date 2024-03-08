@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignUuId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignUuId('recipe_id')->constrained()->cascadeOnDelete();
-            $table->unsignedTinyInteger('raiting');
+            $table->unsignedTinyInteger('rating');
             $table->text('comment');
             $table->timestamps();
             $table->softDeletes();
