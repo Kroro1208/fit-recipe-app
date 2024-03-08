@@ -22,6 +22,7 @@
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
             @include('layouts.announce')
+            @include('layouts.global-header')
 
             <!-- Page Heading -->
             @if (isset($header))
