@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [RecipeController::class, 'index']);
+
+Route::resource('recipes', RecipeController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -29,6 +29,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('recipes', RecipeController::class);
 
 require __DIR__.'/auth.php';
