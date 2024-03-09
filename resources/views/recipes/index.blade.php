@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="grid grid-cols-3 gap-5">
-        <div class="col-span-2 bg-sky-200 rounded-xl p-4 mb-4">
+        <div class="col-span-2 bg-sky-100 rounded-xl p-4 mb-4">
             @foreach($recipes as $recipe)
                 @include('recipes.partial.card')
             @endforeach
