@@ -19,14 +19,18 @@ class RecipeController extends Controller
         ->join('users', 'users.id', '=', 'recipes.user_id')->orderBy('recipes.views', 'desc')->limit(3)
         ->get();
     
-        return view('recipes.home', compact('recipes', 'popular'));
+        return view('home', compact('recipes', 'popular'));
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('recipes.index');
+        $recipes = Recipe::select('recipes.id', 'recipes.title', 'recipes.description', 'recipes.created_at', 'recipes.image', 'recipes.views', 'users.name')
+        ->join('users', 'users.id', '=', 'recipes.user_id')->orderBy('recipes.created_at', 'desc')->get();
+       
+        
+        return view('recipes.index', compact('recipes'));
     }
 
     /**

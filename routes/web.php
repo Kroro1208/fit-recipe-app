@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [RecipeController::class, 'home']);
+Route::get('/', [RecipeController::class, 'home'])->name('home');
 
 Route::resource('recipes', RecipeController::class);
 
