@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="grid grid-cols-3 gap-5">
-        <div class="col-span-2 bg-sky-100 rounded-xl p-4 mb-4">
+        <div class="col-span-2 bg-sky-100 rounded-xl p-4 mb-5">
             @foreach($recipes as $recipe)
                 @include('recipes.partial.card')
             @endforeach
@@ -15,42 +15,32 @@
                     <h3 class="font-bold text-xl">レシピを絞り込む</h3>
                 </div>
                 <div class="mb-4 border border-slate-300 p-4 rounded-xl">
-                    <label class="text-lg text-gray-600 font-bold">評価</label>
-                    <div>
+                    <label class="text-lg mb-2 text-gray-600 font-bold">評価</label>
+                    <div class="ml-4 mb-2">
                         <input type="radio" name="rating" value="0" checked/>
                         <label for="rating">指定しない</label>
                     </div>
-                    <div>
+                    <div class="ml-4 mb-2">
                         <input type="radio" name="rating" value="5" />
                         <label for="rating">5</label>
                     </div>
-                    <div>
+                    <div class="ml-4 mb-2">
                         <input type="radio" name="rating" value="4" />
                         <label for="rating">4以上</label>
                     </div>
-                    <div>
+                    <div class="ml-4 mb-2">
                         <input type="radio" name="rating" value="3" />
                         <label for="rating">3以上</label>
                     </div>
                 </div>
                 <div class="mb-4 border border-slate-300 p-4 rounded-xl">
-                    <label class="text-lg text-gray-600 font-bold">カテゴリ</label>
-                    <div>
-                        <input type="checkbox" name="rating" value="0" checked/>
-                        <label for="rating">指定しない</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" name="rating" value="5" />
-                        <label for="rating">5</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" name="rating" value="4" />
-                        <label for="rating">4以上</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" name="rating" value="3" />
-                        <label for="rating">3以上</label>
-                    </div>
+                    <label class="text-lg mb-2 text-gray-600 font-bold">カテゴリ</label>
+                    @foreach ($categories as $category)
+                        <div class="ml-4 mb-2">
+                            <input type="checkbox" id="category{{$category['id']}}" name="categories[]" value="{{$category['id']}}" />
+                            <label for="category{{$category['id']}}">{{$category->name}}</label>
+                        </div>
+                    @endforeach
                 </div>
                 <input type="text" name="title" value="" placeholder="お探しのレシピ名を入力してください" class="text-center border border-slate-300 p-2 rounded-xl w-full focus:ring-2">
                 <div class="flex justify-center mt-5">
