@@ -17,19 +17,19 @@
                 <div class="mb-4 border border-slate-300 p-4 rounded-xl">
                     <label class="text-lg mb-2 text-gray-600 font-bold">評価</label>
                     <div class="ml-4 mb-2">
-                        <input type="radio" name="rating" value="0" checked/>
+                        <input type="radio" name="rating" value="0" {{ request()->get('rating', 0) == '0' ? 'checked' : '' }}/>
                         <label for="rating">指定しない</label>
                     </div>
                     <div class="ml-4 mb-2">
-                        <input type="radio" name="rating" value="5" />
+                        <input type="radio" name="rating" value="5" {{ request()->get('rating') == '5' ? 'checked' : '' }}/>
                         <label for="rating">5</label>
                     </div>
                     <div class="ml-4 mb-2">
-                        <input type="radio" name="rating" value="4" />
+                        <input type="radio" name="rating" value="4" {{ request()->get('rating') == '4' ? 'checked' : '' }}/>
                         <label for="rating">4以上</label>
                     </div>
                     <div class="ml-4 mb-2">
-                        <input type="radio" name="rating" value="3" />
+                        <input type="radio" name="rating" value="3" {{ request()->get('rating') == '3' ? 'checked' : '' }}/>
                         <label for="rating">3以上</label>
                     </div>
                 </div>
@@ -37,7 +37,9 @@
                     <label class="text-lg mb-2 text-gray-600 font-bold">カテゴリ</label>
                     @foreach ($categories as $category)
                         <div class="ml-4 mb-2">
-                            <input type="checkbox" id="category{{$category['id']}}" name="categories[]" value="{{$category['id']}}" class="rounded-full"/>
+                            <input type="checkbox" id="category{{$category['id']}}" name="categories[]" value="{{$category['id']}}" class="rounded-full"
+                            {{ in_array($category['id'], request()->get('categories', [])) ? 'checked' : '' }}
+                            />
                             <label for="category{{$category['id']}}">{{$category->name}}</label>
                         </div>
                     @endforeach
