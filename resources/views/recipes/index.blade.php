@@ -6,7 +6,7 @@
             @endforeach
             <a href="{{route('home')}}" class="text-white block text-center text-xl border border-gray-400 rounded-xl bg-gray-800 shadow-md py-2 px-3 hover:bg-slate-500 hover:text-white">ホーム画面へ戻る</a>
         </div>
-        <div class="col-span-1 bg-white rounded-xl p-5">
+        <div class="col-span-1 bg-white rounded-xl p-5 h-max sticky top-4">
             <form method="GET" action="{{route('recipes.index')}}">
                 <div class="flex gap-3 items-center justify-center mb-5">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -37,7 +37,7 @@
                     <label class="text-lg mb-2 text-gray-600 font-bold">カテゴリ</label>
                     @foreach ($categories as $category)
                         <div class="ml-4 mb-2">
-                            <input type="checkbox" id="category{{$category['id']}}" name="categories[]" value="{{$category['id']}}" />
+                            <input type="checkbox" id="category{{$category['id']}}" name="categories[]" value="{{$category['id']}}" class="rounded-full"/>
                             <label for="category{{$category['id']}}">{{$category->name}}</label>
                         </div>
                     @endforeach

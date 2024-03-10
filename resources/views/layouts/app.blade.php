@@ -34,9 +34,11 @@
             @endif
 
             <!-- Page Content -->
+            @auth
             <main class="container mx-auto mt-5">
                 {{ $slot }}
             </main>
+            @endauth
         </div>
         @include('layouts.footer')
     </body>
