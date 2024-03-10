@@ -44,7 +44,7 @@
                         </div>
                     @endforeach
                 </div>
-                <input type="text" name="title" value="" placeholder="お探しのレシピ名を入力してください" class="text-center border border-slate-300 p-2 rounded-xl w-full focus:ring-2">
+                <input type="text" name="title" value="{{request()->get('title', '')}}" placeholder="お探しのレシピ名を入力してください" class="text-center border border-slate-300 p-2 rounded-xl w-full focus:ring-2">
                 <div class="flex justify-center mt-5">
                     <button type="submit" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-xl mt-3 mx-auto">絞り込み検索</button>
                 </div>
