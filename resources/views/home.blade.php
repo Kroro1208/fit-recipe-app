@@ -28,7 +28,7 @@
             <h2 class="text-2xl font-bold mb-2">人気レシピ</h2>
             <div class="col-span-2 flex justify-between bg-white rounded-xl mb-6">
                 @foreach($popular as $p)
-                    <a href="{{route('recipes.show', ['recipe'=>$recipe['id']])}}" class="max-20 rounded-xl overflow-hidden shadow-lg mx-4 hover:shadow-2xl transform hover:-translate-y-1 hover:scale-100 transition duration-300 ease-in-out">
+                    <a href="{{route('recipes.show', ['recipe'=>$recipe->id])}}" class="max-20 rounded-xl overflow-hidden shadow-lg mx-4 hover:shadow-2xl transform hover:-translate-y-1 hover:scale-100 transition duration-300 ease-in-out">
                         <img src="{{$recipe->image}}" alt="{{$recipe->title}} " class="object-cover rounded-t-xl max-h-44 h-44 w-full rounded-l-xl">
                         <div class="px-6 py-4">
                             <div class="mb-2 text-2xl font-bold">{{$recipe->title}}</div>
