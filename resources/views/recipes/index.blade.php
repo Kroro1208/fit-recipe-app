@@ -1,10 +1,13 @@
 <x-app-layout>
     <div class="grid grid-cols-3 gap-5">
         <div class="col-span-2 bg-sky-100 rounded-xl p-4 mb-5">
+            <div class="mb-3">
+                {{Breadcrumbs::render('recipes')}}
+            </div>
             @foreach($recipes as $recipe)
                 @include('recipes.partial.card')
             @endforeach
-            <a href="{{route('home')}}" class="text-white block text-center text-xl border border-gray-400 rounded-xl bg-gray-800 shadow-md py-2 px-3 hover:bg-slate-500 hover:text-white">ホーム画面へ戻る</a>
+            <a href="{{route('home')}}" class="font-semibold block text-center text-lg rounded-md bg-gray-300 shadow-md py-2 px-3 hover:bg-slate-500 hover:text-white">ホーム画面へ戻る</a>
         </div>
         <div class="col-span-1 bg-white rounded-xl p-5 h-max sticky top-4">
             <form method="GET" action="{{route('recipes.index')}}">
@@ -56,10 +59,10 @@
     <script>
         document.getElementById('clearButton').addEventListener('click', function() {
             // 各フィールドをリセット
-            document.querySelector('input[type="text"][name="title"]').value = '';
             document.querySelectorAll('input[type="radio"][name="rating"], input[type="checkbox"][name="categories[]"]').forEach(function(input) {
                 input.checked = false;
             });
+            document.querySelector('input[type="text"][name="title"]').value = '';
 
             // 「指定しない」のラジオボタンをデフォルトで選択
             document.querySelector('input[type="radio"][name="rating"][value="0"]').checked = true;
