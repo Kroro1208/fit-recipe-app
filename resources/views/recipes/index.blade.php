@@ -7,7 +7,8 @@
             @foreach($recipes as $recipe)
                 @include('recipes.partial.card')
             @endforeach
-            <a href="{{route('home')}}" class="font-semibold block text-center text-lg rounded-md bg-gray-300 shadow-md py-2 px-3 hover:bg-slate-500 hover:text-white">ホーム画面へ戻る</a>
+            {{$recipes->links()}}
+            <a href="{{route('home')}}" class="mt-5 font-semibold block text-center text-lg rounded-md bg-gray-300 shadow-md py-2 px-3 hover:bg-slate-500 hover:text-white">ホーム画面へ戻る</a>
         </div>
         <div class="col-span-1 bg-white rounded-xl p-5 h-max sticky top-4">
             <form method="GET" action="{{route('recipes.index')}}">
