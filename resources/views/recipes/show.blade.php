@@ -1,5 +1,7 @@
 <x-app-layout>
-    {{Breadcrumbs::render('recipes.show', $recipe)}}
+    <div class="mb-3">
+        {{Breadcrumbs::render('recipes.show', $recipe)}}
+    </div>
     <div class="mx-auto rounded-xl">
         <div class="grid grid-cols-2 rounded-xl border bg-white border-gray-200">
             <div class="col-span-1">
