@@ -7,7 +7,7 @@
         <div class="grid grid-cols-2 rounded-xl border bg-white border-gray-200">
             <div class="col-span-1">
                 <img class="object-cover rounded-l-xl w-full aspect-video" src="" alt="recipe-image">
-                <input type="file" name="image" class="border border-gray-300 p-2 mb-4 w-full rounded-xl">
+                <input type="file" id="image" name="image" class="border border-gray-300 p-2 mb-4 w-full rounded-xl">
             </div>
 
             <div class="col-span-1 p-3">

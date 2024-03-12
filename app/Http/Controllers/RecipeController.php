@@ -7,6 +7,7 @@ use App\Models\Recipe;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 
 class RecipeController extends Controller
@@ -76,11 +77,13 @@ class RecipeController extends Controller
     public function store(Request $request)
     {
         $posts = $request->all();
+        $image = $request->file('image');
+        // s3に画像をアップロード→
+        $path = Storage::disk('s3')->putFile('recipe', $image, 'public');
+        // s3に保存した画像URLを取得及び変換→
+        $url = Storage::disk('s3')->url($path);
         
-        // s3に画像をアップロード→s3に保存した画像URLを取得→そのURLをDBに保存
-
-
-
+        $now = now(); // 現在の日時を取得
 
         Recipe::insert([
             // $request->all();は配列を返すので、配列の要素にアクセスする場合は、
@@ -89,7 +92,10 @@ class RecipeController extends Controller
             'title' => $posts['title'],
             'description' => $posts['description'],
             'category_id' => $posts['category'], // recipesテーブルではカラム名はcategory_id
+            'image'=> $url, // 画像URLをDBに保存
             'user_id' => Auth::id(),
+            'created_at' => $now,
+            'updated_at' => $now,
         ]);
 
         return to_route('recipes.index')->with('success', 'あなたのレシピが投稿されました。');
