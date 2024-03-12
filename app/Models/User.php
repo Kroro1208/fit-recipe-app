@@ -8,6 +8,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Recipe;
+use Illuminate\Database\Eloquent\Review;
+
 
 class User extends Authenticatable
 {
@@ -44,4 +49,12 @@ class User extends Authenticatable
         'password' => 'hashed',
         'id'=>'string'
     ];
+
+    public function recipes():HasMany{
+        return $this->hasMany(Recipe::class);
+    }
+
+    public function reviews():HasMany{
+        return $this->hasMany(Review::class);
+    }
 }
