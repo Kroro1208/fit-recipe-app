@@ -6,7 +6,7 @@
         <div class="w-10/12 p-4 mx-auto bg-white rounded-xl">
             <div class="grid grid-cols-2 rounded-xl border bg-white border-gray-200">
                 <div class="col-span-1">
-                    <img class="object-cover rounded-l-xl h-40 w-full " src="{{$recipe->image}}" alt="{{$recipe->title}}">
+                    <img class="object-cover aspect-square rounded-l-xl w-full " src="{{$recipe->image}}" alt="{{$recipe->title}}">
                 </div>
                 <div class="col-span-1 p-3">
                     <div class="flex gap-5 items-center">
@@ -19,25 +19,28 @@
                             <li>{{$i->name}}:{{$i->quantity}}</li>
                         @endforeach
                         </ul>
+                    <p class="text-xl font-semibold mt-4">レシピの説明</p>
                     <p class="mt-2">{{$recipe->description}}</p>
                 </div>
             </div>
             <br>
             <div class="">
-                <h4 class="text-2xl font-bold mb-2">作り方</h4>
-                @foreach ($recipe->steps as $s)
-                    <div class="flex items-center mb-2">
-                        <div class="w-10 h-10 flex items-center justify-center bg-gray-400 rounded-full mr-4">
-                            {{$s->step_number}}
+                <h4 class="text-2xl font-bold mb-6">作り方</h4>
+                <div class="grid grid-cols-4 gap-2">
+                    @foreach ($recipe->steps as $s)
+                        <div class="items-center mb-2 rounded-xl background-color p-3">
+                            <div class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white rounded-full mb-2">
+                                {{$s->step_number}}
+                            </div>
+                            <p>{{$s->description}}</p>
                         </div>
-                        <p>{{$s->description}}</p>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
         </div>
         <div class="w-10/12 p-4 mx-auto bg-white rounded-xl">
             <h4 class="text-2xl font-bold mb-2">レビュー</h4>
-            @if ($recipe->reviews===0)
+            @if (count($recipe->reviews)===0)
                 <p>レビューはまだありません</p>
             @endif
             @foreach ($recipe->reviews as $r)

@@ -19,7 +19,7 @@ class StepsTableSeeder extends Seeder
         foreach($recipes as $recipe) {
             $numberOfSteps = rand(3, 6);
 
-            for($i = 0; $i <= $numberOfSteps; $i++) {
+            for($i = 1; $i <= $numberOfSteps; $i++) {
                 DB::table('steps')->insert([
                     'recipe_id' => $recipe,
                     'step_number'=> $i,
