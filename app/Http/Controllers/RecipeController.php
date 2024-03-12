@@ -76,6 +76,12 @@ class RecipeController extends Controller
     public function store(Request $request)
     {
         $posts = $request->all();
+        
+        // s3に画像をアップロード→s3に保存した画像URLを取得→そのURLをDBに保存
+
+
+
+
         Recipe::insert([
             // $request->all();は配列を返すので、配列の要素にアクセスする場合は、
             // オブジェクトのプロパティアクセス構文(->)ではなく、配列のアクセス構文(['key'])を使用する必要がある
