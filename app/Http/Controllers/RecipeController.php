@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Recipe;
 use App\Models\Category;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+
 
 class RecipeController extends Controller
 {
@@ -62,8 +65,9 @@ class RecipeController extends Controller
      */
     public function create()
     {
-        
-        return view('recipes.create');
+        $categories = Category::all();
+
+        return view('recipes.create', compact('categories'));
     }
 
     /**
@@ -71,7 +75,18 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $posts = $request->all();
+        Recipe::insert([
+            // $request->all();は配列を返すので、配列の要素にアクセスする場合は、
+            // オブジェクトのプロパティアクセス構文(->)ではなく、配列のアクセス構文(['key'])を使用する必要がある
+            'id' => (string) Str::uuid(),
+            'title' => $posts['title'],
+            'description' => $posts['description'],
+            'category_id' => $posts['category'], // recipesテーブルではカラム名はcategory_id
+            'user_id' => Auth::id(),
+        ]);
+
+        return to_route('recipes.index')->with('success', 'あなたのレシピが投稿されました。');
     }
 
     /**

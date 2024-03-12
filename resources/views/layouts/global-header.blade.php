@@ -10,8 +10,10 @@
                 検索
             </button>
         </form>
-        <a href="{{route('recipes.create')}}" class="focus:outline-none bg-green-500 text-white hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg shadow-md px-5 py-2.5 hover:cursor-pointer">
-            レシピを投稿する
-        </a>
+        @if (Route::currentRouteName() !== 'recipes.create')
+            <a href="{{route('recipes.create')}}" class="focus:outline-none bg-green-500 text-white hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg shadow-md px-5 py-2.5 hover:cursor-pointer">
+                レシピ作成画面へ
+            </a>
+        @endif
     </div>
 </section>

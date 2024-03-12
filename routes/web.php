@@ -26,8 +26,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('recipes/create', [RecipeController::class, 'create'])->name('recipes.create');
+    Route::post('recipes', [RecipeController::class, 'store'])->name('recipes.store');
 });
 
-Route::resource('recipes', RecipeController::class)->except(['create']);
+Route::resource('recipes', RecipeController::class)->except(['create', 'store']);
 
 require __DIR__.'/auth.php';
