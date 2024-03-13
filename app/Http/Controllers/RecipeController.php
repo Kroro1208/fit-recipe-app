@@ -11,6 +11,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Throwable;
 
 
 
@@ -123,16 +125,17 @@ class RecipeController extends Controller
             }
 
             Step::insert($steps);
+
             DB::commit();
 
-        } catch(\throwable $th) {
+        } catch(Throwable $th) {
             DB::rollBack();
-            \Log::debug(print_r($th->getMessage(), true));
+            Log::debug(print_r($th->getMessage(), true));
             throw $th;
         }
 
-        
-        return to_route('recipes.show', ['recipe'=>$uuid])->with('success', 'レシピが投稿されました');
+        flash()->success('あなたのレシピが投稿されました');
+        return to_route('recipes.show', ['recipe'=>$uuid]);
     }
 
     /**

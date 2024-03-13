@@ -23,6 +23,7 @@
         <div class="min-h-screen">
             @include('layouts.announce')
             @include('layouts.global-header')
+            @include('flash::message')
 
             <!-- Page Heading -->
             @if (isset($header))
