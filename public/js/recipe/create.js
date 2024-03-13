@@ -50,7 +50,34 @@ window.onload = function () {
 
     });
 
+    // 材料追加
+    let ingredients = document.getElementById('ingredients');
+    Sortable.create(ingredients, {
+        animation: 100,
+        handle: '.handle',
+        onEnd: function () {
+            let items = ingredients.querySelectorAll('.ingredient');
+            items.forEach(function (item, index) {
+                // name属性のindexも動的に変更
+                item.querySelector('.ingredient-name').name = `ingredients[${index}][name]`;
+                item.querySelector('.ingredient-quantity').name = `ingredients[${index}][quantity]`;
+            });
+        }
+    });
+
+    // 削除
+    ingredients.addEventListener('click', function (evt) {
+        if (evt.target.classList.contains('.ingredient-delete') || evt.target.closest('.ingredient-delete')) {
+            evt.target.closest('.ingredient').remove();
+            items.forEach(function (item, index) {
+                // name属性のindexも動的に変更
+                item.querySelector('.ingredient-name').name = `ingredients[${index}][name]`;
+                item.querySelector('.ingredient-quantity').name = `ingredients[${index}][quantity]`;
+            });
+
+        }
+    })
 
 
-}
+}; // window.onload
 
