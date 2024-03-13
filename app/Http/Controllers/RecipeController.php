@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Recipe;
+use App\Models\Step;
+use App\Models\Ingredient;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -77,6 +79,8 @@ class RecipeController extends Controller
     public function store(Request $request)
     {
         $posts = $request->all();
+        $uuid =Str::uuid()->toString();
+        
         $image = $request->file('image');
         // s3に画像をアップロード→
         $path = Storage::disk('s3')->putFile('recipe', $image, 'public');
@@ -84,21 +88,53 @@ class RecipeController extends Controller
         $url = Storage::disk('s3')->url($path);
         
         $now = now(); // 現在の日時を取得
+        
+        try {
+            DB::beginTransaction();
+            Recipe::insert([
+                // $request->all();は配列を返すので、配列の要素にアクセスする場合は、
+                // オブジェクトのプロパティアクセス構文(->)ではなく、配列のアクセス構文(['key'])を使用する必要がある
+                'id' => (string) Str::uuid(),
+                'title' => $posts['title'],
+                'description' => $posts['description'],
+                'category_id' => $posts['category'], // recipesテーブルではカラム名はcategory_id
+                'image'=> $url, // 画像URLをDBに保存
+                'user_id' => Auth::id(),
+                'created_at' => $now,
+                'updated_at' => $now,
+            ]);
 
-        Recipe::insert([
-            // $request->all();は配列を返すので、配列の要素にアクセスする場合は、
-            // オブジェクトのプロパティアクセス構文(->)ではなく、配列のアクセス構文(['key'])を使用する必要がある
-            'id' => (string) Str::uuid(),
-            'title' => $posts['title'],
-            'description' => $posts['description'],
-            'category_id' => $posts['category'], // recipesテーブルではカラム名はcategory_id
-            'image'=> $url, // 画像URLをDBに保存
-            'user_id' => Auth::id(),
-            'created_at' => $now,
-            'updated_at' => $now,
-        ]);
+            $ingredients = [];
+            foreach($posts['ingredients'] as $key => $ingredient) {
+                $ingredients[$key] = [
+                    'recipe_id' => $uuid,
+                    'name' => $ingredient->name,
+                    'quantity' => $ingredient->quantity
+                ];
+            }
 
-        return to_route('recipes.index')->with('success', 'あなたのレシピが投稿されました。');
+            Ingredient::insert($ingredients);
+
+            $steps = [];
+            foreach($posts['steps'] as $key => $step) {
+                $steps[$key] = [
+                    'recipe' => $uuid,
+                    'step_number' => $key + 1,
+                    'description' => $step
+                ];
+            }
+
+            Step::insert($steps);
+            DB::commit();
+
+        } catch(\throwable $th) {
+            DB::rollBack();
+            \Log::debug(print_r($th->getMessage(), true));
+            throw $th;
+        }
+
+        
+        return to_route('recipes.show', ['recipes'=>$uuid])->with('success', 'レシピが投稿されました');
     }
 
     /**
