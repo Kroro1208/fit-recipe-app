@@ -10,6 +10,8 @@ use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
+
 
 
 class RecipeController extends Controller
@@ -86,30 +88,26 @@ class RecipeController extends Controller
         $path = Storage::disk('s3')->putFile('recipe', $image, 'public');
         // s3に保存した画像URLを取得及び変換→
         $url = Storage::disk('s3')->url($path);
-        
-        $now = now(); // 現在の日時を取得
-        
+                
         try {
             DB::beginTransaction();
             Recipe::insert([
                 // $request->all();は配列を返すので、配列の要素にアクセスする場合は、
                 // オブジェクトのプロパティアクセス構文(->)ではなく、配列のアクセス構文(['key'])を使用する必要がある
-                'id' => (string) Str::uuid(),
+                'id' => $uuid,
                 'title' => $posts['title'],
                 'description' => $posts['description'],
                 'category_id' => $posts['category'], // recipesテーブルではカラム名はcategory_id
                 'image'=> $url, // 画像URLをDBに保存
                 'user_id' => Auth::id(),
-                'created_at' => $now,
-                'updated_at' => $now,
             ]);
 
             $ingredients = [];
             foreach($posts['ingredients'] as $key => $ingredient) {
                 $ingredients[$key] = [
                     'recipe_id' => $uuid,
-                    'name' => $ingredient->name,
-                    'quantity' => $ingredient->quantity
+                    'name' => $ingredient['name'],
+                    'quantity' => $ingredient['quantity']
                 ];
             }
 
@@ -118,7 +116,7 @@ class RecipeController extends Controller
             $steps = [];
             foreach($posts['steps'] as $key => $step) {
                 $steps[$key] = [
-                    'recipe' => $uuid,
+                    'recipe_id' => $uuid,
                     'step_number' => $key + 1,
                     'description' => $step
                 ];
@@ -134,7 +132,7 @@ class RecipeController extends Controller
         }
 
         
-        return to_route('recipes.show', ['recipes'=>$uuid])->with('success', 'レシピが投稿されました');
+        return to_route('recipes.show', ['recipe'=>$uuid])->with('success', 'レシピが投稿されました');
     }
 
     /**
