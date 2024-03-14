@@ -32,7 +32,7 @@
                         $old_ingredients = old('ingredients') ?? null;
                     @endphp
                     @if (is_null($old_ingredients))
-                        @for ($i = 0; $i < 3; $i ++)
+                        @for ($i = 0; $i < 1; $i ++)
                         <div class="ingredient flex items-center mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="handle w-12 h-12 mr-1 cursor-pointer">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />

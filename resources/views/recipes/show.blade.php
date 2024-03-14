@@ -38,6 +38,12 @@
                 </div>
             </div>
         </div>
+
+        @if ($is_my_recipe)
+        <a href="{{route('recipes.edit', ['recipe'=>$recipe->id])}}" class="block m-2 bg-sky-400 hover:bg-sky-600 text-white font-bold p-4 w-10/12 mx-auto text-center rounded-xl">
+            編集する</a>    
+        @endif
+
         <div class="w-10/12 p-4 mx-auto bg-white rounded-xl">
             <h4 class="text-2xl font-bold mb-2">レビュー</h4>
             @if (count($recipe->reviews)===0)

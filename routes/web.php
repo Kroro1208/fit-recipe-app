@@ -27,8 +27,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('recipes/create', [RecipeController::class, 'create'])->name('recipes.create');
     Route::post('recipes', [RecipeController::class, 'store'])->name('recipes.store');
+    Route::get('recipes/{recipe}/edit', [RecipeController::class, 'edit'])->name('recipes.edit');
 });
 
-Route::resource('recipes', RecipeController::class)->except(['create', 'store']);
+Route::resource('recipes', RecipeController::class)->except(['create', 'store', 'edit']);
 
 require __DIR__.'/auth.php';
