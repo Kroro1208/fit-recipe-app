@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RecipeCreateRequest;
 use Illuminate\Http\Request;
 use App\Models\Recipe;
 use App\Models\Step;
@@ -80,7 +81,7 @@ class RecipeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(RecipeCreateRequest $request)
     {
         $posts = $request->all();
         $uuid =Str::uuid()->toString();
@@ -93,6 +94,7 @@ class RecipeController extends Controller
                 
         try {
             DB::beginTransaction();
+
             Recipe::insert([
                 // $request->all();は配列を返すので、配列の要素にアクセスする場合は、
                 // オブジェクトのプロパティアクセス構文(->)ではなく、配列のアクセス構文(['key'])を使用する必要がある

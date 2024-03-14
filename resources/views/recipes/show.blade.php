@@ -3,12 +3,6 @@
         <div class="mb-3">
             {{Breadcrumbs::render('recipes.show', $recipe)}}
         </div>
-         <!-- フラッシュメッセージの表示 -->
-         @if (session('success'))
-         <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative text-2xl mb-2 font-semibold" role="alert">
-             {{ session('success') }}
-         </div>
-        @endif
         <div class="w-10/12 p-4 mx-auto bg-white rounded-xl">
             <div class="grid grid-cols-2 rounded-xl border bg-white border-gray-200">
                 <div class="col-span-1">

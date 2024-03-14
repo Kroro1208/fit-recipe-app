@@ -6,6 +6,7 @@ window.onload = function () {
         let file = evt.target.files[0];
         if (file) {
             const reader = new FileReader();
+            // ファイルリーダーがファイルの内容を読み込み終えたときに発火するonloadイベントに対するイベントハンドラを設定
             reader.onload = function (e) {
                 preview.src = e.target.result;
             }
