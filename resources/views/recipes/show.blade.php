@@ -40,7 +40,7 @@
         </div>
 
         @if ($is_my_recipe)
-        <a href="{{route('recipes.edit', ['recipe'=>$recipe->id])}}" class="block m-2 bg-sky-400 hover:bg-sky-600 text-white font-bold p-4 w-10/12 mx-auto text-center rounded-xl">
+        <a href="{{route('recipes.edit', ['recipe'=>$recipe->id])}}" class="block m-2 bg-purple-400 hover:bg-purple-600 text-white font-bold p-4 w-10/12 mx-auto text-center rounded-xl">
             編集する</a>    
         @endif
 

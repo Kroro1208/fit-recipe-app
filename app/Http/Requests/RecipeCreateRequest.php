@@ -26,7 +26,7 @@ class RecipeCreateRequest extends FormRequest
             'title' => 'required|string|max:500',
             'description' => 'required|string|max:500',
             'category' => 'required',
-            'image' => 'required|file|image|mimes:jpeg, jpg, png|max:2048',
+            'image' => 'required|file|image|mimes:jpeg,jpg,png|max:2048',
             'ingredients.*.name' => 'required|string|max:50',
             'ingredients.*.quantity' => 'required|string|max:50',
             'steps.*' => 'required|string|max:50',

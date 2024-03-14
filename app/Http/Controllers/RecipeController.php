@@ -91,6 +91,7 @@ class RecipeController extends Controller
         $path = Storage::disk('s3')->putFile('recipe', $image, 'public');
         // s3に保存した画像URLを取得及び変換→
         $url = Storage::disk('s3')->url($path);
+        $now = now(); // 現在の日時を取得
                 
         try {
             DB::beginTransaction();
@@ -104,6 +105,7 @@ class RecipeController extends Controller
                 'category_id' => $posts['category'], // recipesテーブルではカラム名はcategory_id
                 'image'=> $url, // 画像URLをDBに保存
                 'user_id' => Auth::id(),
+                'created_at' => $now,
             ]);
 
             $ingredients = [];
@@ -129,8 +131,6 @@ class RecipeController extends Controller
             Step::insert($steps);
 
             DB::commit();
-            flash()->success('あなたのレシピが投稿されました');
-            return to_route('recipes.show', ['recipe'=>$uuid]);
             
         } catch(Throwable $th) {
             DB::rollBack();
@@ -139,6 +139,8 @@ class RecipeController extends Controller
             throw $th;
         }
         
+        flash()->success('あなたのレシピが投稿されました');
+        return to_route('recipes.show', ['recipe'=>$uuid]);
     }
 
     /**
@@ -163,7 +165,8 @@ class RecipeController extends Controller
      */
     public function edit(string $id)
     {
-        $recipe = Recipe::with(['ingredients', 'steps', 'reviews.user', 'user'])->where('recipes.id', $id)->first();
+        $recipe = Recipe::with(['ingredients', 'steps', 'reviews.user', 'user'])
+        ->where('recipes.id', $id)->first();
         $categories = Category::all();
 
         return view('recipes.edit', compact('recipe', 'categories'));
