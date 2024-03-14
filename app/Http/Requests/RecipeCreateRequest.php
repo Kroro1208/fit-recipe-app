@@ -28,6 +28,7 @@ class RecipeCreateRequest extends FormRequest
             'category' => 'required',
             'image' => 'required|file|image|mimes:jpeg, jpg, png|max:2048',
             'ingredients.*.name' => 'required|string|max:50',
+            'ingredients.*.quantity' => 'required|string|max:50',
             'steps.*' => 'required|string|max:50',
         ];
     }
@@ -39,6 +40,8 @@ class RecipeCreateRequest extends FormRequest
             'description' => 'レシピ名の概要',
             'category' => 'カテゴリー',
             'image' => 'レシピ画像',
+            'ingredients.*.name' => '材料名',
+            'ingredients.*.quantity' => '分量',
             'steps.*' => '手順'
         ];
     }

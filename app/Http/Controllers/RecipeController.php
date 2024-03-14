@@ -129,13 +129,13 @@ class RecipeController extends Controller
             Step::insert($steps);
 
             DB::commit();
-
+            
         } catch(Throwable $th) {
             DB::rollBack();
             Log::debug(print_r($th->getMessage(), true));
             throw $th;
         }
-
+        
         flash()->success('あなたのレシピが投稿されました');
         return to_route('recipes.show', ['recipe'=>$uuid]);
     }
