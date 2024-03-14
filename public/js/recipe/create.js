@@ -14,7 +14,7 @@ window.onload = function () {
         }
     });
 
-
+    // 並び替え
     const steps = document.getElementById('steps');
     Sortable.create(steps, {
         animation: 100,
@@ -28,7 +28,7 @@ window.onload = function () {
     });
 
     steps.addEventListener('click', function (evt) {
-        if (evt.target.classList.contains('.step-delete') || evt.target.closest('.step-delete')) {
+        if (evt.target.classList.contains('step-delete') || evt.target.closest('.step-delete')) {
             evt.target.closest('.step').remove(); // 親要素ごと削除する
             // 削除後は番号をソートし直す
             let items = steps.querySelectorAll('.step');
@@ -82,14 +82,14 @@ window.onload = function () {
 
     // 削除
     ingredients.addEventListener('click', function (evt) {
-        if (evt.target.classList.contains('.ingredient-delete') || evt.target.closest('.ingredient-delete')) {
+        if (evt.target.classList.contains('ingredient-delete') || evt.target.closest('.ingredient-delete')) {
             evt.target.closest('.ingredient').remove();
+            let items = ingredients.querySelectorAll('.ingredient');
             items.forEach(function (item, index) {
                 // name属性のindexも動的に変更
                 item.querySelector('.ingredient-name').name = `ingredients[${index}][name]`;
                 item.querySelector('.ingredient-quantity').name = `ingredients[${index}][quantity]`;
             });
-
         }
     })
 
