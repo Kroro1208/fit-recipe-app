@@ -177,7 +177,63 @@ class RecipeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $posts = $request->all();
+
+        $update_array = [
+            'title' => $posts['title'],
+            'description'=> $posts['description'],
+            'category_id' => $posts['category_id']
+        ];
+
+        if($request->hasFile('image')) {
+            $image = $request->file('image');
+            $path = Storage::disk('s3')->putFile('recipe', $image, 'public');
+            $url = Storage::disk('s3')->url($path);
+            $update_array['image'] = $url;
+        }
+
+        try {
+            DB::beginTransaction();
+            Recipe::where('id', $id)->update($update_array);
+    
+            Ingredient::where('recipe_id', $id)->delete();
+            Step::where('recipe_id', $id)->delete();
+            $ingredients = [];
+    
+            foreach($posts['ingredients'] as $key => $ingredient) {
+                $ingredients[$key] = [
+                    'recipe_id' => $id,
+                    'name' => $ingredient['name'],
+                    'quantity' => $ingredient['quantity']
+                ];
+            }
+    
+            Ingredient::insert($ingredients);
+    
+            $steps = [];
+            foreach($posts['steps'] as $key => $step) {
+                $steps[$key] = [
+                    'recipe_id' => $id,
+                    'step_number' => $key + 1,
+                    'description' => $step
+                ];
+            }
+    
+            Step::insert($steps);
+
+            DB::commit();
+
+
+            flash()->success('あなたのレシピが更新されました');
+            return to_route('recipes.show', ['recipe'=>$id]);
+
+
+        } catch(Throwable $th) {
+            DB::rollBack();
+            Log::debug(print_r($th->getMessage(), true));
+            throw $th;
+        }
+
     }
 
     /**

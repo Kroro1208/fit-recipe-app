@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::get('recipes/create', [RecipeController::class, 'create'])->name('recipes.create');
     Route::post('recipes', [RecipeController::class, 'store'])->name('recipes.store');
     Route::get('recipes/{recipe}/edit', [RecipeController::class, 'edit'])->name('recipes.edit');
+    Route::PATCH('recipes/{recipe}', [RecipeController::class, 'update'])->name('recipes.update');
 });
 
 Route::resource('recipes', RecipeController::class)->except(['create', 'store', 'edit']);

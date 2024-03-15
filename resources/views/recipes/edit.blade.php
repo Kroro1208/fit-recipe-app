@@ -3,12 +3,12 @@
         <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
         <script src="/js/recipe/create.js"></script>
     </x-slot>
-    <form method="POST" action="{{route('recipes.store')}}" enctype="multipart/form-data"
+    <form method="POST" action="{{route('recipes.update', ['recipe'=>$recipe->id])}}" enctype="multipart/form-data"
     class="w-10/12 p-4 mx-auto bg-white rounded-xl">
         @csrf
         @method('PATCH')
         <div class="mb-3">
-            {{Breadcrumbs::render('recipes.create')}}
+            {{Breadcrumbs::render('recipes.edit')}}
         </div>
         <div class="grid grid-cols-2 rounded-xl bg-white gap-5">
             <div class="col-span-1">
@@ -19,7 +19,7 @@
             <div class="col-span-1 p-3">
                 <input type="text" name="title" value="{{$recipe['title']}}" placeholder="レシピ名を入力" class="rounded-xl border border-gray-300 p-2 mb-4 w-full">
                 <textarea name="description" placeholder="レシピ名の概要" cols="30" rows="10" class="rounded-xl border border-gray-300 p-2 mb-4 w-full">{{$recipe['description']}}</textarea>
-                <select name="category" id="category" class="border border-gray-300 p-2 mb-4 mt-2 w-full rounded-xl">
+                <select name="category_id" id="category" class="border border-gray-300 p-2 mb-4 mt-2 w-full rounded-xl">
                     <option value="">カテゴリーを選ぶ</option>
                     @foreach ($categories as $c)
                         <option value="{{$c->id}}" {{($recipe['category_id'] ?? null) == $c['id'] ? 'selected' : ""}}>{{$c->name}}</option>
