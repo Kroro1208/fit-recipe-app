@@ -45,7 +45,11 @@
         @endif
         
         @guest
-            <p class="text-center text-gray-500"><a href="{{route('login')}}" class="text-blue-600" >レビューを投稿するにはログインしてください</a></p>
+            <p class="text-center text-gray-500 p-6 font-bold">
+                <a href="{{route('login')}}" class="text-blue-600" >
+                レビューを投稿するにはログインしてください
+                </a>
+            </p>
         @endguest
 
         <div class="w-10/12 p-4 mx-auto bg-white rounded-xl">

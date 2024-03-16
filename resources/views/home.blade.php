@@ -19,9 +19,6 @@
             @endforeach
                 <a href="{{route('recipes.index')}}" class="text-white block text-center text-xl border border-gray-400 rounded-xl bg-gray-800 shadow-md py-2 px-3 hover:bg-slate-500 hover:text-white">全てのレシピへ</a>
         </div>
-        <div class="col-span-1 bg-white rounded-xl ml-4">
-            <img src="" alt="">
-        </div>
     </div>
     <div class="grid grid-cols-4 gap-4 mt-4">
         <div class="col-span-3 bg-white rounded-xl p-4 mb-4">
