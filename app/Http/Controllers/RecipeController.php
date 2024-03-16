@@ -64,7 +64,7 @@ class RecipeController extends Controller
         // 人気レシピで表示
         if ($request->query('sort') === 'popular') {
             $query->addSelect(DB::raw('AVG(reviews.rating) as average_rating'))
-                  ->havingRaw('AVG(reviews.rating) >= ?', [3]) // 0以上の平均評価を持つレシピに限定
+                  ->havingRaw('AVG(reviews.rating) >= ?', [3]) // 3以上の平均評価を持つレシピに限定
                   ->orderBy('average_rating', 'desc');
         }
 

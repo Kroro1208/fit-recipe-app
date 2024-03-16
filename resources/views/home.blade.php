@@ -3,14 +3,9 @@
         <div class="col-span-1 bg-white rounded-xl p-4">
             <h3 class="text-2xl font-bold mb-2">レシピ検索</h3>
             <ul class="ml-6 mb-4">
-                <li><a href="">全てレシピ</a></li>
-                <li><a href="">人気のレシピ</a></li>
+                <li class="font-bold"><a href="{{route('recipes.index')}}">全てのレシピ</a></li>
+                <li class="font-bold"><a href="{{route('recipes.index', ['sort' => 'popular']) }}">人気のレシピ</a></li>
             </ul>
-            <h3 class="text-2xl font-bold mb-2">レシピ投稿</h3>
-            <ul class="ml-6 mb-4">
-                <li><a href="">全てレシピ</a></li>
-                <li><a href="">人気のレシピ</a></li>
-            </ul>              
         </div>
         <div class="col-span-3 bg-white rounded-xl p-4">
             <h2 class="text-2xl font-bold mb-2">新着レシピ</h2>

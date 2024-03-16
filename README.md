@@ -1,4 +1,7 @@
 ## 途中経過
+完成品デモ
+![デモ](/recipeREADME8.gif)
+
 手順カードのドラッグ、追加実装
 ![手順カード実装](/recipeREADME7.gif)
 
