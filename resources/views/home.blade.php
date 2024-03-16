@@ -12,7 +12,7 @@
                 <li><a href="">人気のレシピ</a></li>
             </ul>              
         </div>
-        <div class="col-span-2 bg-white rounded-xl p-4">
+        <div class="col-span-3 bg-white rounded-xl p-4">
             <h2 class="text-2xl font-bold mb-2">新着レシピ</h2>
             @foreach($recipes as $recipe)
             @include('recipes.partial.card')
@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="grid grid-cols-4 gap-4 mt-4">
-        <div class="col-span-3 bg-white rounded-xl p-4 mb-4">
+        <div class="col-span-4 bg-white rounded-xl p-4 mb-4">
             <h2 class="text-2xl font-bold mb-2">人気レシピ</h2>
             <div class="col-span-2 flex justify-between bg-white rounded-xl mb-6">
                 @foreach($popular as $p)
@@ -34,8 +34,7 @@
                     </a>
                 @endforeach
             </div>
-            <a href="{{route('recipes.index')}}" class="text-white block text-center text-xl border border-red-400 rounded-xl bg-pink-400 shadow-md py-2 px-3 hover:bg-pink-600 hover:text-white">人気のレシピへ</a>
+            <a href="{{route('recipes.index', ['sort' => 'popular']) }}" class="text-white block text-center text-xl border border-red-400 rounded-xl bg-pink-400 shadow-md py-2 px-3 hover:bg-pink-600 hover:text-white">人気のレシピへ</a>
         </div>
-        <div class="col-span-1 bg-white rounded-xl ml-4 mb-4"></div>
     </div>
 </x-app-layout>
