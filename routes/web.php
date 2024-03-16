@@ -29,8 +29,10 @@ Route::middleware('auth')->group(function () {
     Route::post('recipes', [RecipeController::class, 'store'])->name('recipes.store');
     Route::get('recipes/{recipe}/edit', [RecipeController::class, 'edit'])->name('recipes.edit');
     Route::PATCH('recipes/{recipe}', [RecipeController::class, 'update'])->name('recipes.update');
+    Route::delete('recipes/{recipe}', [RecipeController::class, 'destroy'])->name('recipes.destroy');
+
 });
 
-Route::resource('recipes', RecipeController::class)->except(['create', 'store', 'edit']);
+Route::resource('recipes', RecipeController::class)->except(['create', 'store', 'edit', 'destroy']);
 
 require __DIR__.'/auth.php';

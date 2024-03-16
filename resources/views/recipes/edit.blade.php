@@ -46,15 +46,19 @@
                     </div>   
                     @endforeach
                 </div>
-                    <button id="add-ingredient" type="button" class="bg-gray-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded-xl">
+                    <button id="add-ingredient" type="button" class="bg-gray-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded-full">
                         材料を追加する</button>
                 </div>
                 
-                <div class="col-span-1 p-10 ml-10">
-                    <img class="w-50 h-50 opacity-50" src="/image/chef-isometric.png" alt="ingredient">
+                <div class="col-span-1 justify-between pl-5 ml-44">
+                    <img class="w-52 h-52 opacity-50" src="/image/chef-isometric.png" alt="ingredient">
                 </div>
             </div>
+            <div class="flex justify-center">
+                <button type="submit" class="mt-5 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-xl">レシピを更新する</button>
+            </div>
             <hr class="my-4 border-t-2 border-gray-300">
+
             <h4 class="font-bold text-xl text-center mb-4">手順を入力</h4>
             <div id="steps">
                 @foreach ($recipe['steps'] as $i=> $os)
@@ -72,9 +76,13 @@
             </div>
             <button type="button" id="add-step" class="mt-5 mb-5 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full">
                 手順を追加する</button>
-            <div class="flex justify-end">
-                <button type="submit" class="mt-5 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-xl">
-                    レシピを更新する</button>
-        </div>
-    </form>
+            </div>
+        </form>
+        <div class="flex justify-center gap-10">
+            <form method="POST" action="{{route('recipes.destroy', ['recipe'=>$recipe->id])}}">
+                @csrf
+                @method('DELETE')
+                <button id="delete" type="submit" class="mt-10 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-xl">レシピを削除する</button>
+            </form>
+        </div>      
 </x-app-layout>
