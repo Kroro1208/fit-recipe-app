@@ -43,9 +43,35 @@
         <a href="{{route('recipes.edit', ['recipe'=>$recipe->id])}}" class="block m-2 bg-purple-400 hover:bg-purple-600 text-white font-bold p-4 w-10/12 mx-auto text-center rounded-xl">
             編集する</a>    
         @endif
+        
+        @guest
+            <p class="text-center text-gray-500"><a href="{{route('login')}}" class="text-blue-600" >レビューを投稿するにはログインしてください</a></p>
+        @endguest
 
         <div class="w-10/12 p-4 mx-auto bg-white rounded-xl">
-            <h4 class="text-2xl font-bold mb-2">レビュー</h4>
+            @auth
+                <h4 class="text-2xl font-bold mb-2">レビュー</h4>
+                <form method="POST" action="{{route('reviews.store', ['recipe'=>$recipe->id])}}">
+                    @csrf
+                    <div class="mb-4">
+                        <label for="rating" class="block text-gray-700 text-sm font-bold mb-2">評価</label>
+                        <select name="rating" id="rating" class="block appearance-none w-1/6 bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 pr-8 rounded-full">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3" selected>3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="comment">コメント</label>
+                        <textarea name="comment" id="comment" cols="30" rows="5" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-2 px-4 rounded-lg"></textarea>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <button type="submit" class=" bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mb-3 mx-auto rounded-full ">レビューを投稿する</button>
+                    </div>
+                </form>
+            @endauth
             @if (count($recipe->reviews)===0)
                 <p>レビューはまだありません</p>
             @endif

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,7 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::get('recipes/{recipe}/edit', [RecipeController::class, 'edit'])->name('recipes.edit');
     Route::PATCH('recipes/{recipe}', [RecipeController::class, 'update'])->name('recipes.update');
     Route::delete('recipes/{recipe}', [RecipeController::class, 'destroy'])->name('recipes.destroy');
-
+    Route::post('recipes/{recipe}/review', [ReviewController::class, 'store'])->name('reviews.store');
 });
 
 Route::resource('recipes', RecipeController::class)->except(['create', 'store', 'edit', 'destroy']);
