@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RecipeCreateRequest;
+use App\Http\Requests\RequestUpdateRequest;
 use Illuminate\Http\Request;
 use App\Models\Recipe;
 use App\Models\Step;
@@ -175,7 +176,7 @@ class RecipeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(RequestUpdateRequest $request, string $id)
     {
         $posts = $request->all();
 
